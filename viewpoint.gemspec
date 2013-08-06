@@ -5,7 +5,7 @@ version = File.read(File.expand_path("../VERSION", __FILE__)).strip
 
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
-  s.name = 'viewpoint'
+  s.name = 'viewpoint_old'
   s.version = version
   s.date    = Date.today.to_s
   s.summary = 'A Ruby client access library for Microsoft Exchange Web Services (EWS)'
