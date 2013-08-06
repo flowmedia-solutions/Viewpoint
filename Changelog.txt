@@ -410,7 +410,7 @@ commit d31a56ef490743756c6c84416e26565b08dbafb1
 Author: Dan Wanek <dan.wanek@gmail.com>
 Date:   Sat Jul 31 17:34:59 2010 -0500
 
-    Added Viewpoint::EWS::EWS#me method.
+    Added ViewpointOld::EWS::EWS#me method.
     This will return the MailboxUser object associated with the connected user.
 
 commit b081f2a98436acd6bb087c5a333b5cb454735268
@@ -757,7 +757,7 @@ Merge: fdfb74b 8690778
 Author: Dan Wanek <dan.wanek@gmail.com>
 Date:   Mon Dec 7 10:21:14 2009 -0600
 
-    Merge branch 'master' of git@github.com:zenchild/Viewpoint
+    Merge branch 'master' of git@github.com:zenchild/ViewpointOld
 
 commit 8690778fb2c15d3b4f1699ca5eec1de533e1d7c1
 Author: Dan Wanek <dwanek@woden.asgard.net>
@@ -910,7 +910,7 @@ commit e1256e527d6dcc0b1a6009261f62bc09a2b50690
 Author: Dan Wanek <dan.wanek@gmail.com>
 Date:   Fri Oct 9 23:21:17 2009 -0500
 
-    Added beginnings of a Viewpoint Web client in Sinatra. '/demo' works for now.
+    Added beginnings of a ViewpointOld Web client in Sinatra. '/demo' works for now.
 
 commit 9e4584da65cf87b39f669ac91f6285c8619ac708
 Author: Dan Wanek <dan.wanek@gmail.com>

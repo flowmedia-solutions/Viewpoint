@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     class Task < Item
       
@@ -38,7 +38,7 @@ module Viewpoint
       # @example Minimal Usage
       #   item = {:subject => {:text => 'This is a test'}}
       def self.create_item_from_hash(item, folder_id = :tasks, disposition = 'SaveOnly')
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.create_task_item(folder_id, item, disposition)
         if(resp.status == 'Success')
           resp = resp.items.shift
@@ -87,7 +87,7 @@ module Viewpoint
       #
       def delete!(soft=false, affected_task_occurrences='AllOccurrences')
         deltype = soft ? 'SoftDelete' : 'HardDelete'
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], deltype, nil, affected_task_occurrences)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], deltype, nil, affected_task_occurrences)
         self.clear_object!
         resp.status == 'Success'
       end
@@ -100,7 +100,7 @@ module Viewpoint
       # @return [Boolean] Whether or not the item was deleted
       # @todo Add exception handling for failed deletes
       def recycle!(affected_task_occurrences='AllOccurrences')
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems', nil, affected_task_occurrences)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems', nil, affected_task_occurrences)
         self.clear_object!
         resp.status == 'Success'
       end
@@ -118,4 +118,4 @@ module Viewpoint
 
     end # Task
   end # EWS
-end # Viewpoint
+end # ViewpointOld

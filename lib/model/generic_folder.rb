@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -19,14 +19,14 @@
 # This class is inherited by all folder subtypes such as Mail, Calendar,
 # Tasks and Search.  It will serve as the brain for all of the methods that
 # each of these folder types have in common.
-module Viewpoint
+module ViewpointOld
   module EWS
     # This class is a generic folder that should typically not be instantiated
     # on it's own.  It represents all the commonalities among folders found
     # in the Exchange Data Store of which there are many.
     # @see http://msdn.microsoft.com/en-us/library/aa564009.aspx
     class GenericFolder
-      include Viewpoint
+      include ViewpointOld
       include Model
 
       @@distinguished_folder_ids = %w{calendar contacts deleteditems drafts inbox journal
@@ -46,7 +46,7 @@ module Viewpoint
       # @option folder_shape [String] :base_shape IdOnly/Default/AllProperties
       # @raise [EwsError] raised when the backend SOAP method returns an error.
       def self.get_folder(folder_id, act_as = nil, folder_shape = {:base_shape => 'Default'})
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_folder( [normalize_id(folder_id)], folder_shape, act_as )
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_folder( [normalize_id(folder_id)], folder_shape, act_as )
         if(resp.status == 'Success')
           folder = resp.items.first
           f_type = folder.keys.first.to_s.camel_case
@@ -67,12 +67,12 @@ module Viewpoint
       # @raise [EwsError] raised when the backend SOAP method returns an error.
       def self.find_folders(root = :msgfolderroot, traversal = 'Shallow', shape = 'Default', folder_type = nil)
         if( folder_type.nil? )
-          resp = (Viewpoint::EWS::EWS.instance).ews.find_folder( [normalize_id(root)], traversal, {:base_shape => shape} )
+          resp = (ViewpointOld::EWS::EWS.instance).ews.find_folder( [normalize_id(root)], traversal, {:base_shape => shape} )
         else
           restr = {:restriction => 
             {:is_equal_to => [{:field_uRI => {:field_uRI=>'folder:FolderClass'}}, {:field_uRI_or_constant=>{:constant => {:value => folder_type}}}]}
           }
-          resp = (Viewpoint::EWS::EWS.instance).ews.find_folder( [normalize_id(root)], traversal, {:base_shape => shape}, restr)
+          resp = (ViewpointOld::EWS::EWS.instance).ews.find_folder( [normalize_id(root)], traversal, {:base_shape => shape}, restr)
         end
 
         if(resp.status == 'Success')
@@ -93,7 +93,7 @@ module Viewpoint
       # @return [Array<String>] Return an Array of folder names.
       # @raise [EwsError] raised when the backend SOAP method returns an error.
       def self.folder_names(root = :msgfolderroot)
-        resp = (Viewpoint::EWS::EWS.instance).ews.find_folder([root], 'Shallow')
+        resp = (ViewpointOld::EWS::EWS.instance).ews.find_folder([root], 'Shallow')
         if(resp.status == 'Success')
           flds = []
           resp.items.each do |f|
@@ -120,7 +120,7 @@ module Viewpoint
         restr = {:restriction =>
           {:is_equal_to => 
             [{:field_uRI => {:field_uRI=>'folder:DisplayName'}}, {:field_uRI_or_constant =>{:constant => {:value=>name}}}]}}
-        resp = (Viewpoint::EWS::EWS.instance).ews.find_folder([root], opts[:traversal], {:base_shape => shape}, restr)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.find_folder([root], opts[:traversal], {:base_shape => shape}, restr)
         if(resp.status == 'Success')
           raise EwsFolderNotFound, "The folder requested is invalid or unavailable" if resp.items.empty?
           f = resp.items.first
@@ -193,7 +193,7 @@ module Viewpoint
         # Refresh the subscription if already subscribed
         unsubscribe if subscribed?
 
-        resp = (Viewpoint::EWS::EWS.instance).ews.subscribe([folder_id],event_types)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.subscribe([folder_id],event_types)
         if(resp.status == 'Success')
           @subscription_id = resp.items.first[:subscription_id][:text]
           @watermark = resp.items.first[:watermark][:text]
@@ -216,7 +216,7 @@ module Viewpoint
       def unsubscribe
         return true if @subscription_id.nil?
 
-        resp = (Viewpoint::EWS::EWS.instance).ews.unsubscribe(@subscription_id)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.unsubscribe(@subscription_id)
         if(resp.status == 'Success')
           @subscription_id, @watermark = nil, nil
           return true
@@ -231,7 +231,7 @@ module Viewpoint
       def get_events
         begin
           if(subscribed?)
-            resp = (Viewpoint::EWS::EWS.instance).ews.get_events(@subscription_id, @watermark)
+            resp = (ViewpointOld::EWS::EWS.instance).ews.get_events(@subscription_id, @watermark)
             parms = resp.items.shift
             @watermark = parms[:watermark]
             # @todo if parms[:more_events] # get more events
@@ -253,7 +253,7 @@ module Viewpoint
         unless item_shape.has_key?(:additional_properties) # Don't overwrite if specified by caller
           item_shape[:additional_properties] = {:field_uRI => ['item:ParentFolderId']}
         end
-        resp = (Viewpoint::EWS::EWS.instance).ews.find_item([@folder_id], 'Shallow', item_shape, opts)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.find_item([@folder_id], 'Shallow', item_shape, opts)
         if(resp.status == 'Success')
           parms = resp.items.shift
           items = []
@@ -337,7 +337,7 @@ module Viewpoint
       #   make sure you are fetching a specific version of the object.
       def get_item(item_id, change_key = nil)
         item_shape = {:base_shape => 'Default', :additional_properties => {:field_uRI => ['item:ParentFolderId']}}
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_item([item_id], item_shape)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_item([item_id], item_shape)
         if(resp.status == 'Success')
           item = resp.items.shift
           type = item.keys.first
@@ -358,7 +358,7 @@ module Viewpoint
         item_shape = options[:item_shape] ||
           {:base_shape => 'Default', :additional_properties => {:field_uRI => ['item:ParentFolderId']}}
         shallow = item_shape[:base_shape] != 'AllProperties'
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_item(item_ids, item_shape)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_item(item_ids, item_shape)
         if(resp.status == 'Success')
           resp.items.map do |item|
             type = item.keys.first
@@ -385,7 +385,7 @@ module Viewpoint
       def sync_items!(sync_amount = 256, sync_all = false, opts = {})
         item_shape = opts.has_key?(:item_shape) ? opts.delete(:item_shape) : {:base_shape => 'Default'}
         shallow = item_shape[:base_shape] != 'AllProperties'
-        resp = (Viewpoint::EWS::EWS.instance).ews.sync_folder_items(@folder_id, @sync_state, sync_amount, item_shape)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.sync_folder_items(@folder_id, @sync_state, sync_amount, item_shape)
         parms = resp.items.shift
         @sync_state = parms[:sync_state]
         @synced = parms[:includes_last_item_in_range]
@@ -439,7 +439,7 @@ module Viewpoint
       #
       # @param [String] name The name of the new folder
       def add_subfolder(name)
-        resp = (Viewpoint::EWS::EWS.instance).ews.create_folder(@folder_id, name)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.create_folder(@folder_id, name)
         folder = resp.items.first
         ftype = folder.keys.first
         GenericFolder.get_folder(folder[ftype][:folder_id][:id])
@@ -451,7 +451,7 @@ module Viewpoint
       #   will be thrown in the SOAP Parser
       def delete!(recycle_bin = false)
         deltype = recycle_bin ? 'MoveToDeletedItems' : 'HardDelete'
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_folder(@folder_id, deltype)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_folder(@folder_id, deltype)
         true
       end
 
@@ -468,4 +468,4 @@ module Viewpoint
 
     end # GenericFolder
   end # EWS
-end # Viewpoint
+end # ViewpointOld

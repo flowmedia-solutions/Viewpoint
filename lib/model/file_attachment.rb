@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     # This class represents a file attachment item.  You can save this object
     # to a file withthe #save_to_file method.
@@ -26,7 +26,7 @@ module Viewpoint
       # @param [String] attachment_id The unique ID for the attachment.
       def initialize(attachment_id)
         @id = attachment_id
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.get_attachment([attachment_id])
         @file_name = resp.items.first[:file_attachment][:name][:text]
 
@@ -50,4 +50,4 @@ module Viewpoint
       
     end # FileAttachment
   end # EWS
-end # Viewpoint
+end # ViewpointOld

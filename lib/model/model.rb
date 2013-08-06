@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -19,7 +19,7 @@
 # This class is inherited by all Item subtypes such as Message, Event,
 # and Task.  It will serve as the brain for all of the methods that
 # each of these Item types have in common.
-module Viewpoint
+module ViewpointOld
   module EWS
     # This is the base model Module for shared code among all Model classes.
     # @attr_reader [Array] :ews_methods The EWS methods created for this Model.
@@ -266,4 +266,4 @@ module Viewpoint
 
     end # Model
   end # EWS
-end # Viewpoint
+end # ViewpointOld

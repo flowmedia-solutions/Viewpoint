@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -22,11 +22,11 @@ require 'soap/handsoap/parser'
 
 Handsoap.http_driver = :http_client
 
-module Viewpoint
+module ViewpointOld
   module EWS
     module SOAP
       class ExchangeWebService < Handsoap::Service
-        include Viewpoint::EWS::SOAP
+        include ViewpointOld::EWS::SOAP
 
         SOAP_ACTION_PREFIX = "http://schemas.microsoft.com/exchange/services/2006/messages"
 
@@ -810,4 +810,4 @@ module Viewpoint
       end # class ExchangeWebService
     end # module SOAP
   end # EWS
-end # Viewpoint
+end # ViewpointOld

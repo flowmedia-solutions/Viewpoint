@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -70,14 +70,14 @@ require 'exceptions/exceptions'
 # is what ties all the pieces together.
 # @attr_reader [SOAP::ExchangeWebService] :ews The SOAP object used to make calls
 #   to the Exchange Web Service.
-module Viewpoint
+module ViewpointOld
   module EWS
-    # @attr_reader [Viewpoint::EWS::SOAP::ExchangeWebService] :ews The EWS object used
+    # @attr_reader [ViewpointOld::EWS::SOAP::ExchangeWebService] :ews The EWS object used
     #   to make SOAP calls.  You typically don't need to use this, but if you want to
     #   play around with the SOAP back-end it's available.
     class EWS
       include Singleton
-      include Viewpoint
+      include ViewpointOld
 
       attr_reader :ews
 

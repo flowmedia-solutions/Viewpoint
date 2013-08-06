@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     module SOAP
       module Parser
@@ -99,6 +99,6 @@ module Viewpoint
       end # Parser
     end # SOAP
   end # SPWS
-end # Viewpoint
+end # ViewpointOld
 
 require 'soap/handsoap/parsers/ews_parser'

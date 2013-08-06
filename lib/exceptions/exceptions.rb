@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 =end
-module Viewpoint
+module ViewpointOld
   module EWS
 
     # Generic Ews Error
@@ -31,7 +31,7 @@ module Viewpoint
     class EwsSubscriptionTimeout < StandardError
     end
 
-    # Represents a function in EWS that is not yet implemented in Viewpoint
+    # Represents a function in EWS that is not yet implemented in ViewpointOld
     class EwsNotImplemented < StandardError
     end
 
@@ -42,5 +42,5 @@ module Viewpoint
     class EwsFolderNotFound < StandardError; end
 
   end # EWS
-end # Viewpoint
+end # ViewpointOld
  

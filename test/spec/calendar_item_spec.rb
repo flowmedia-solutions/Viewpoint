@@ -8,11 +8,11 @@ require 'date'
 #   {"user":"myuser","pass":"mypass","endpoint":"https://mydomain.com/ews/exchange.asmx"}
 
 
-describe Viewpoint::EWS::CalendarItem, "functionality testing" do
+describe ViewpointOld::EWS::CalendarItem, "functionality testing" do
   before(:all) do
     creds = JSON.load(File.open("#{File.dirname(__FILE__)}/creds.json",'r'))
-    Viewpoint::EWS::EWS.endpoint = creds['endpoint']
-    Viewpoint::EWS::EWS.set_auth(creds['user'],creds['pass'])
+    ViewpointOld::EWS::EWS.endpoint = creds['endpoint']
+    ViewpointOld::EWS::EWS.set_auth(creds['user'],creds['pass'])
     @v_start = DateTime.parse("#{Date.today}T14:00:00-06:00")
     @v_end   = DateTime.parse("#{Date.today}T15:00:00-06:00")
   end
@@ -25,23 +25,23 @@ describe Viewpoint::EWS::CalendarItem, "functionality testing" do
         :end => {:text => @v_end.to_s}
       }
 
-      citem = Viewpoint::EWS::CalendarItem.create_item_from_hash(item)
-      citem.should be_instance_of(Viewpoint::EWS::CalendarItem)
+      citem = ViewpointOld::EWS::CalendarItem.create_item_from_hash(item)
+      citem.should be_instance_of(ViewpointOld::EWS::CalendarItem)
       citem.recycle!.should be_true
     end
 
     it 'should #create_item from a user-friendly method' do
-      citem = Viewpoint::EWS::CalendarItem.create_item(@v_start, @v_end, 'RSpec Testing', 'Test Body', 'TBA')
-      citem.should be_instance_of(Viewpoint::EWS::CalendarItem)
+      citem = ViewpointOld::EWS::CalendarItem.create_item(@v_start, @v_end, 'RSpec Testing', 'Test Body', 'TBA')
+      citem.should be_instance_of(ViewpointOld::EWS::CalendarItem)
       citem.recycle!.should be_true
     end
   end
 
   describe "CalendarItem instance functionality" do
     before(:all) do
-      @ews = Viewpoint::EWS::EWS.instance
-      @cal = Viewpoint::EWS::CalendarFolder.get_folder :calendar
-      @citem = Viewpoint::EWS::CalendarItem.create_item(@v_start, @v_end, 'RSpec Testing', 'Test Body', 'TBA')
+      @ews = ViewpointOld::EWS::EWS.instance
+      @cal = ViewpointOld::EWS::CalendarFolder.get_folder :calendar
+      @citem = ViewpointOld::EWS::CalendarItem.create_item(@v_start, @v_end, 'RSpec Testing', 'Test Body', 'TBA')
     end
 
     it 'should #update_attribs! for the CalendarItem' do

@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -19,7 +19,7 @@
 # This class is inherited by all Item subtypes such as Message, Event,
 # and Task.  It will serve as the brain for all of the methods that
 # each of these Item types have in common.
-module Viewpoint
+module ViewpointOld
   module EWS
     class Item
       include Model
@@ -34,7 +34,7 @@ module Viewpoint
       def self.get_item(item_id, shape = :default)
         item_shape = {:base_shape => shape.to_s.camel_case}
         shallow = item_shape[:base_shape] != 'AllProperties'
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_item([item_id], item_shape)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_item([item_id], item_shape)
         if(resp.status == 'Success')
           item = resp.items.shift
           type = item.keys.first
@@ -50,7 +50,7 @@ module Viewpoint
       # @option parent_id [String] :change_key The ChangeKey
       # @param [Array<File>] attachments An Array of File objects to read in.
       def self.add_attachments(parent_id, attachments)
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         b64attach = []
         attachments.each do |a|
           b64attach << {:name => {:text =>(File.basename a.path)}, :content => {:text => Base64.encode64(a.read)}}
@@ -113,7 +113,7 @@ module Viewpoint
       # @param [Hash] updates a well-formed update hash
       # @example {:set_item_field=>{:field_uRI=>{:field_uRI=>"message:IsRead"}, :message=>{:is_read=>{:text=>"true"}}}}
       def update!(updates)
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.update_item([{:id => @item_id, :change_key => @change_key}], {:updates => updates})
         if resp.status == 'Success'
           @item_id = resp.items.first[resp.items.first.keys.first][:item_id][:id]
@@ -178,7 +178,7 @@ module Viewpoint
 
       def deepen!
         return true unless @shallow
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         shape = {:base_shape => 'AllProperties', :body_type => (@text_only ? 'Text' : 'Best')}
         resp = conn.ews.get_item([@item_id], shape) 
         resp = resp.items.shift
@@ -195,7 +195,7 @@ module Viewpoint
       #   be a subclass of GenericFolder, a DistinguishedFolderId (must me a Symbol) or a FolderId (String)
       def move!(new_folder)
         new_folder = new_folder.id if new_folder.kind_of?(GenericFolder)
-        resp = (Viewpoint::EWS::EWS.instance).ews.move_item([@item_id], new_folder)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.move_item([@item_id], new_folder)
         if(resp.status == 'Success')
           @item_id = resp.items.first[resp.items.first.keys.first][:item_id][:id]
           @change_key = resp.items.first[resp.items.first.keys.first][:item_id][:change_key]
@@ -211,7 +211,7 @@ module Viewpoint
       # @return [Item] The Item object of the copy
       def copy(new_folder)
         new_folder = new_folder.id if new_folder.kind_of?(GenericFolder)
-        resp = (Viewpoint::EWS::EWS.instance).ews.copy_item([@item_id], new_folder)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.copy_item([@item_id], new_folder)
         if(resp.status == 'Success')
           item = resp.items.first
           i_type = item.keys.first.to_s.camel_case
@@ -254,7 +254,7 @@ module Viewpoint
       # @todo Add exception handling for failed deletes
       def delete!(soft=false)
         deltype = soft ? 'SoftDelete' : 'HardDelete'
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], deltype)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], deltype)
         self.clear_object!
         (resp.status == 'Success') || (raise EwsError, "Could not delete message. #{resp.code}: #{resp.message}")
       end
@@ -264,7 +264,7 @@ module Viewpoint
       # @return [Boolean] Whether or not the item was deleted
       # @todo Add exception handling for failed deletes
       def recycle!
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems')
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems')
         self.clear_object!
         (resp.status == 'Success') || (raise EwsError, "Could not recycle message. #{resp.code}: #{resp.message}")
       end
@@ -310,4 +310,4 @@ module Viewpoint
 
     end # Item
   end # EWS
-end # Viewpoint
+end # ViewpointOld

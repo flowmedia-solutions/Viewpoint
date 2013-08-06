@@ -10,10 +10,10 @@ require 'json'
 describe "Folder Subscriptions" do
   before(:all) do
     creds = JSON.load(File.open("#{File.dirname(__FILE__)}/creds.json",'r'))
-    Viewpoint::EWS::EWS.endpoint = creds['endpoint']
-    Viewpoint::EWS::EWS.set_auth(creds['user'],creds['pass'])
-    @ews = Viewpoint::EWS::EWS.instance
-    @inbox = Viewpoint::EWS::GenericFolder.get_folder :inbox
+    ViewpointOld::EWS::EWS.endpoint = creds['endpoint']
+    ViewpointOld::EWS::EWS.set_auth(creds['user'],creds['pass'])
+    @ews = ViewpointOld::EWS::EWS.instance
+    @inbox = ViewpointOld::EWS::GenericFolder.get_folder :inbox
   end
 
   describe "Example Folder Subscription for the Inbox" do

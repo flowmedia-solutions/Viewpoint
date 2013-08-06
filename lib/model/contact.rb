@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     # Represents a Contact Item in the Exchange datastore.
     class Contact < Item
@@ -47,7 +47,7 @@ module Viewpoint
       #   }
       # @example Minimal Usage
       def self.create_item_from_hash(item, folder_id = :contacts)
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.create_contact_item(folder_id, item)
         if(resp.status == 'Success')
           resp = resp.items.shift
@@ -61,7 +61,7 @@ module Viewpoint
       def self.add_contact()
         item = {}
         
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.create_contact_item()
 
         if(resp.status == 'Success')
@@ -235,4 +235,4 @@ module Viewpoint
 
     end # Contact
   end # EWS
-end # Viewpoint
+end # ViewpointOld

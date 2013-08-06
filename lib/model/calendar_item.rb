@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     class CalendarItem < Message
 
@@ -42,7 +42,7 @@ module Viewpoint
       #     :end => {:text => '2010-07-29T15:00:00'}
       #   }
       def self.create_item_from_hash(item, folder_id = :calendar, send_invites = 'SendToAllAndSaveCopy')
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.create_calendar_item(folder_id, item, send_invites)
         if(resp.status == 'Success')
           resp = resp.items.shift
@@ -147,7 +147,7 @@ module Viewpoint
       # Remove the attendees from the attendee list. This does not commit the changes so you will have to use
       #   #save! to commit them back. If you want to commit them at once look at the #remove_attendees! method.
       # @param [Array] attendees the attendees to remove from this CalendarItem
-      #   [Viewpoint::EWS::Attendee<user1>, Viewpoint::EWS::Attendee<user2>] or
+      #   [ViewpointOld::EWS::Attendee<user1>, ViewpointOld::EWS::Attendee<user2>] or
       #   ['user1@example.org', 'user2@example.org']
       # @return [Boolean] false if the object is not updated, true otherwise
       def remove_attendees(attendees)
@@ -200,7 +200,7 @@ module Viewpoint
       # @example {:set_item_field=>{:field_u_r_i=>{:field_u_r_i=>"message:IsRead"}, :message=>{:is_read=>{:text=>"true"}}}}
       # TODO: This is a stand-in for the Item#update! method until I can firm it up a bit. It is neccessary for the SendMeetingInvitationsOrCancellations attrib
       def update!(updates)
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.update_item([{:id => @item_id, :change_key => @change_key}], {:updates => updates},
                                     {:message_disposition => 'SaveOnly', :conflict_resolution => 'AutoResolve', :send_meeting_invitations_or_cancellations => 'SendOnlyToChanged'})
         if resp.status == 'Success'
@@ -225,7 +225,7 @@ module Viewpoint
       #
       def delete!(soft=false, cancel_type='SendOnlyToAll')
         deltype = soft ? 'SoftDelete' : 'HardDelete'
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], deltype, cancel_type)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], deltype, cancel_type)
         self.clear_object!
         resp.status == 'Success'
       end
@@ -235,7 +235,7 @@ module Viewpoint
       # @return [Boolean] Whether or not the item was deleted
       # @todo Add exception handling for failed deletes
       def recycle!(cancel_type='SendOnlyToAll')
-        resp = (Viewpoint::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems', cancel_type)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.delete_item([@item_id], 'MoveToDeletedItems', cancel_type)
         self.clear_object!
         resp.status == 'Success'
       end
@@ -264,4 +264,4 @@ module Viewpoint
 
     end # CalendarItem
   end # EWS
-end # Viewpoint
+end # ViewpointOld

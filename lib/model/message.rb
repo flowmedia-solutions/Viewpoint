@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     class Message < Item
 
@@ -48,7 +48,7 @@ module Viewpoint
           item[:bcc_recipients] << {:mailbox => {:email_address => {:text => a}}}
         end unless bcc_recipients.nil?
         
-        conn = Viewpoint::EWS::EWS.instance
+        conn = ViewpointOld::EWS::EWS.instance
         resp = conn.ews.create_message_item(:drafts, item, 'SaveOnly')
         (resp.status == 'Success') || (raise EwsError, "Could not send message. #{resp.code}: #{resp.message}")
         msg_key = resp.items.first.keys.first
@@ -139,4 +139,4 @@ module Viewpoint
 
     end # Message
   end # EWS
-end # Viewpoint
+end # ViewpointOld

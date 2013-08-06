@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
 
     # This represents a Mailbox object in the Exchange data store
@@ -33,7 +33,7 @@ module Viewpoint
       # @todo - rename "resolve" to something more descriptive
       #   - standardize on a common return type???
       def self.find_user(resolve)
-        resp = (Viewpoint::EWS::EWS.instance).ews.resolve_names(resolve)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.resolve_names(resolve)
         if(resp.status == 'Success')
           return self.new(resp.items.first[:mailbox])
         elsif(resp.code == 'ErrorNameResolutionMultipleResults')
@@ -53,7 +53,7 @@ module Viewpoint
       # @param [String] end_time The end of the time range to check as an xs:dateTime.
       # @see http://msdn.microsoft.com/en-us/library/aa494212.aspx
       def self.get_user_availability(email_address, start_time, end_time)
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_user_availability(email_address, start_time, end_time)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_user_availability(email_address, start_time, end_time)
         if(resp.status == 'Success')
           return resp.items
         else
@@ -69,7 +69,7 @@ module Viewpoint
 
       def get_oof
         mailbox = {:mailbox => {:address => {:text => email_address}}}
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_user_oof_settings(mailbox)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_user_oof_settings(mailbox)
         s = resp[:oof_settings]
         @oof_state = s[:oof_state][:text]
         @oof_ext_audience = s[:external_audience][:text]
@@ -109,7 +109,7 @@ module Viewpoint
           formatted_perms[k] = {:text => v}
         end
 
-        resp = (Viewpoint::EWS::EWS.instance).ews.add_delegate(self.email_address, delegate_email, formatted_perms)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.add_delegate(self.email_address, delegate_email, formatted_perms)
         if(resp.status == 'Success')
           return true
         else
@@ -124,7 +124,7 @@ module Viewpoint
           formatted_perms[k] = {:text => v}
         end
 
-        resp = (Viewpoint::EWS::EWS.instance).ews.update_delegate(self.email_address, delegate_email, formatted_perms)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.update_delegate(self.email_address, delegate_email, formatted_perms)
         if(resp.status == 'Success')
           return true
         else
@@ -133,7 +133,7 @@ module Viewpoint
       end
 
       def get_delegate_info()
-        resp = (Viewpoint::EWS::EWS.instance).ews.get_delegate(self.email_address)
+        resp = (ViewpointOld::EWS::EWS.instance).ews.get_delegate(self.email_address)
        # if(resp.status == 'Success')
        #   return true
        # else
@@ -143,4 +143,4 @@ module Viewpoint
 
     end # MailboxUser
   end # EWS
-end # Viewpoint
+end # ViewpointOld

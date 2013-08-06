@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -15,8 +15,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 =end
-module Viewpoint::EWS::ContactAccessors
-  include Viewpoint::EWS
+module ViewpointOld::EWS::ContactAccessors
+  include ViewpointOld::EWS
 
   # Find contacts in the passed root folder.  If no parameters are passed this
   # method will search from the Root folder.
@@ -133,7 +133,7 @@ private
     args
   end
 
-  # @param [Viewpoint::EWS::SOAP::EwsSoapResponse] resp
+  # @param [ViewpointOld::EWS::SOAP::EwsSoapResponse] resp
   def find_contacts_parser(resp)
     if resp.status == 'Success'
       contacts = resp.response_message[:elems][:root_folder][:elems][0][:folders][:elems]
@@ -173,7 +173,7 @@ private
     default_args.merge opts
   end
 
-  # @param [Viewpoint::EWS::SOAP::EwsSoapResponse] resp
+  # @param [ViewpointOld::EWS::SOAP::EwsSoapResponse] resp
   def get_folder_parser(resp)
     if(resp.status == 'Success')
       f = resp.response_message[:elems][:folders][:elems][0]

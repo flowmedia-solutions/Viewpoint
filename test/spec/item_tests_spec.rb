@@ -10,25 +10,25 @@ require 'json'
 describe "Test the basic functionality of Items" do
   before(:all) do
     creds = JSON.load(File.open("#{File.dirname(__FILE__)}/creds.json",'r'))
-    Viewpoint::EWS::EWS.endpoint = creds['endpoint']
-    Viewpoint::EWS::EWS.set_auth(creds['user'],creds['pass'])
-    @ews = Viewpoint::EWS::EWS.instance
+    ViewpointOld::EWS::EWS.endpoint = creds['endpoint']
+    ViewpointOld::EWS::EWS.set_auth(creds['user'],creds['pass'])
+    @ews = ViewpointOld::EWS::EWS.instance
   end
 
   it 'should create a new Message Item (with attachments) that we can test with.' do
     f = File.open(File.expand_path(__FILE__), 'r+')
-    $message = Viewpoint::EWS::Message.send('RSPEC test subject', 'RSPEC test body', [@ews.me.email_address],nil,nil,[f],true)
-    $message.should be_instance_of(Viewpoint::EWS::Message)
+    $message = ViewpointOld::EWS::Message.send('RSPEC test subject', 'RSPEC test body', [@ews.me.email_address],nil,nil,[f],true)
+    $message.should be_instance_of(ViewpointOld::EWS::Message)
   end
 
   it 'should move the Message Item to the Inbox folder' do
-    inbox = Viewpoint::EWS::GenericFolder.get_folder :inbox
+    inbox = ViewpointOld::EWS::GenericFolder.get_folder :inbox
     $message.move!(inbox).should be_true
   end
   it 'should copy the Message Item to the Drafts folder' do
-    drafts = Viewpoint::EWS::GenericFolder.get_folder :drafts
+    drafts = ViewpointOld::EWS::GenericFolder.get_folder :drafts
     $msg_copy = $message.copy(drafts)
-    $msg_copy.should be_instance_of(Viewpoint::EWS::Message)
+    $msg_copy.should be_instance_of(ViewpointOld::EWS::Message)
   end
 
   describe "Clean up after ourselves." do

@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -22,7 +22,7 @@
 # and the builder functions in the EwsBuilder class is that the first parameter
 # is of node type.  We use that parameter to build subnodes in this module.
 
-module Viewpoint
+module ViewpointOld
   module EWS
     module SOAP
       module EwsBuildHelpers
@@ -380,4 +380,4 @@ module Viewpoint
       end # EwsBuildHelpers
     end # SOAP
   end # EWS
-end # Viewpoint
+end # ViewpointOld

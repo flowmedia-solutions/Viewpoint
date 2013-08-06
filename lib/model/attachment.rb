@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     # A generic Attachment.  This class should not be instantiated directly.  You
     # should use one of the subclasses like FileAttachment or ItemAttachment.
@@ -28,4 +28,4 @@ module Viewpoint
 
     end # Attachment
   end # EWS
-end # Viewpoint
+end # ViewpointOld

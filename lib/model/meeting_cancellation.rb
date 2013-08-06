@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,11 +16,11 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     # Meeting cancellations have the exact same elements as a Meeting Message
     # so MeetingCancellation is just a subclass of that.
     class MeetingCancellation < MeetingMessage
     end # MeetingCancellation
   end # EWS
-end # Viewpoint
+end # ViewpointOld

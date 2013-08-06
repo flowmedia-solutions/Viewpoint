@@ -1,14 +1,14 @@
 --------------------------------------------------------------------------
-                   Viewpoint for Exchange Web Services
-                http://github.com/zenchild/Viewpoint/wiki
+                   ViewpointOld for Exchange Web Services
+                http://github.com/zenchild/ViewpointOld/wiki
 --------------------------------------------------------------------------
 This program attempts to create a client access library for Exchange Web
 Services (EWS) in Ruby.
 
 !!!CAUTION!!!  This is currently BETA code and has changed dramatically from
-the original version of Viewpoint which was based on Soap4r.  This version
+the original version of ViewpointOld which was based on Soap4r.  This version
 has essentially been gutted and written on top of Handsoap.  Development
-has been much more flexible, but the interface to Viewpoint has changed
+has been much more flexible, but the interface to ViewpointOld has changed
 quite a bit.  I have tried to write good code comments and I will keep
 enhancing this.  I will also try and post examples on my blog as I write
 them or they are asked for.
@@ -21,7 +21,7 @@ Find me on irc.freenode.net in #ruby-lang (zenChild)
 MAJOR CHANGES TO THE FIRST VERSION:
 
 New SOAP backend
-  Viewpoint now uses Handsoap as its back-end instead of soap4r.  While
+  ViewpointOld now uses Handsoap as its back-end instead of soap4r.  While
   soap4r does some very nice things for you automatically, it ends up
   making your code base fairly large and it complicates any customizations
   that you might want to make.  One example is adding custom headers. Soap4r
@@ -31,7 +31,7 @@ New SOAP backend
 
 Models are completely rewritten
   The models are completely new and not backward compatible with the old
-  version of Viewpoint.  Some of the methods still exist, but don't count
+  version of ViewpointOld.  Some of the methods still exist, but don't count
   on them.  I've tried to make this version much more extensible than the
   last.
 
@@ -88,7 +88,7 @@ DESIGN GOALS/GUIDELINES:
     While some people decidedly do not like Hashes and believe complex
     hashing should be in the form of objects, there are some instances
     where hashing is just plain simpler and flexible.  To that end, I use
-    hashes pretty extensively in Viewpoint, both for objects being passed
+    hashes pretty extensively in ViewpointOld, both for objects being passed
     to the SOAP back-end and returned from it.
 
   3. Follow EWS naming conventions where it makes sense.
@@ -106,9 +106,9 @@ DESIGN GOALS/GUIDELINES:
 DISCLAIMER:  If you see something that could be done better or would like
 to help out in the development of this code please feel free to clone the
 'git' repository and send me patches:
-git clone git://github.com/zenchild/Viewpoint.git
+git clone git://github.com/zenchild/ViewpointOld.git
 or add an issue on GitHub:
-http://github.com/zenchild/Viewpoint/issues
+http://github.com/zenchild/ViewpointOld/issues
 
 Cheers!
 --------------------------------------------------------------------------

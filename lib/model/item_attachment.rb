@@ -1,5 +1,5 @@
 =begin
-  This file is part of Viewpoint; the Ruby library for Microsoft Exchange Web Services.
+  This file is part of ViewpointOld; the Ruby library for Microsoft Exchange Web Services.
 
   Copyright © 2011 Dan Wanek <dan.wanek@gmail.com>
 
@@ -16,7 +16,7 @@
   limitations under the License.
 =end
 
-module Viewpoint
+module ViewpointOld
   module EWS
     # An attachment that represents an attachment to another Exchange Item.
     # This is not yet implemented.
@@ -24,10 +24,10 @@ module Viewpoint
 
       # @param [String] attachment_id The unique ID for the attachment.
       def initialize(attachment_id)
-        #raise EwsNotImplemented, "ItemAttachments are not yet implemented in Viewpoint"
-        warn "ItemAttachments are not yet implemented in Viewpoint"
+        #raise EwsNotImplemented, "ItemAttachments are not yet implemented in ViewpointOld"
+        warn "ItemAttachments are not yet implemented in ViewpointOld"
       end
 
     end # ItemAttachment
   end # EWS
-end # Viewpoint
+end # ViewpointOld
